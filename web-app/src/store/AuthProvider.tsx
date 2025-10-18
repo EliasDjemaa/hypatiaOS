@@ -30,26 +30,42 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>({
-    id: '1',
-    email: 'demo@hypatia-os.com',
-    displayName: 'Demo User',
-    role: 'site_coordinator',
-    organizationId: '1'
-  });
+  const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, password: string) => {
-    // Mock login - in real app this would call the API
-    setUser({
-      id: '1',
-      email,
-      displayName: 'Demo User',
-      role: 'site_coordinator',
-      organizationId: '1'
-    });
+    try {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store token in localStorage
+      localStorage.setItem('authToken', data.token);
+
+      setUser({
+        id: '1',
+        email: data.user.email,
+        displayName: data.user.email.split('@')[0],
+        role: data.user.role,
+        organizationId: '1'
+      });
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
+    localStorage.removeItem('authToken');
     setUser(null);
   };
 

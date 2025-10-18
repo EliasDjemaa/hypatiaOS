@@ -1,7 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -145,7 +145,7 @@ app.use('*', (req, res) => {
 });
 
 // Error handling
-app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((error, req, res, next) => {
   console.error('Error:', error);
   res.status(500).json({
     success: false,
