@@ -1,12 +1,24 @@
 # hypatiaOS - Clinical Research Business Platform
 
-## 🚀 Revolutionary Clinical Trial Operating System
+## 🧠 Unified Clinical Trial Financial Orchestration Platform
 
-hypatiaOS is the **world's first unified Clinical Research Business Platform** that combines clinical operations with comprehensive financial management. It replaces fragmented CRO tech stacks with a single, AI-powered platform that handles everything from protocol to payment.
+hypatiaOS is a **Clinical Trial Operating System** — a unified, AI-driven financial orchestration platform for Sponsors, CROs, and Sites. Our goal is to automate everything from contract negotiation to final site payment across global, multi-currency, multi-jurisdictional studies.
 
-### 🌟 **Industry-First Capabilities**
+We're building the infrastructure to eliminate disconnected systems and manual handoffs by integrating:
+- **EDC** (Electronic Data Capture)
+- **CTMS** (Clinical Trial Management System) 
+- **eTMF** (Trial Master File)
+- **IRT** (Randomization/Tracking)
+- **Financial Operations** (Contracts → Budgets → Payments)
+
+All inside one intelligent, compliant ecosystem.
+
+### 🎯 **Our North Star**
+**"Zero manual steps between contract and payment."**
+
+### 🌟 **Vision: Industry-First Capabilities**
 - **Complete Clinical + Financial Integration**: Seamless workflow from EDC events to automated payments
-- **AI-Powered Financial Intelligence**: Contract risk assessment, predictive cost modeling, and real-time analytics
+- **AI-Powered Financial Intelligence**: Contract risk assessment, predictive cost modeling, and real-time analytics  
 - **Global Multi-Currency Operations**: Support for 150+ currencies with local tax compliance
 - **Real-Time Automation**: Event-driven workflows that eliminate manual processes
 - **Enterprise-Grade Compliance**: 21 CFR Part 11, GDPR, SOX, and GCP compliant
@@ -21,13 +33,16 @@ hypatiaOS is the **world's first unified Clinical Research Business Platform** t
 - **RBAC + Consent**: Role-based access with consent-first data handling
 
 ### Technology Stack
-- **Container Orchestration**: Kubernetes
-- **Databases**: PostgreSQL (relational), MongoDB (documents)
-- **Object Storage**: S3-compatible storage
-- **Message Queue**: Apache Kafka
-- **Caching**: Redis
-- **Authentication**: Keycloak/OAuth2
-- **AI Services**: Containerized Python microservices
+
+| Layer | Technology |
+|-------|------------|
+| **Backend** | Node.js + Python microservices, FastAPI, GraphQL, PostgreSQL |
+| **Messaging** | Kafka / RabbitMQ |
+| **Cache** | Redis |
+| **Frontend** | React + Tailwind + shadcn/ui |
+| **Infrastructure** | Docker + Kubernetes (AWS/GCP), CI/CD via GitHub Actions |
+| **Monitoring** | Grafana, Prometheus, OpenTelemetry |
+| **Security** | Vault for secrets, JWT + OAuth2.0 RBAC, AES-256 encryption |
 
 ## Project Structure
 
@@ -103,62 +118,102 @@ hypatiaOS/
    - API Gateway: http://localhost:8080
    - Documentation: http://localhost:3000/docs
 
-## User Roles & Workflows
+## 👥 User Roles & Permissions
 
-### Sponsor-Side Users
-- **Clinical Operations Managers**: Study oversight, timelines, budgets
-- **Medical Monitors**: Patient safety, adverse event review
-- **Data Managers/Biostatisticians**: Data cleaning, validation, analysis
-- **Regulatory Affairs**: Submissions, ethics approvals, compliance
+| Role | Description | Core Tools Access |
+|------|-------------|-------------------|
+| **Sponsor** | Funds and oversees trials | Budget approval, forecasting dashboards, global analytics |
+| **CRO (Contract Research Organization)** | Manages contracts, budgets, and site payments | Contract editor, site payment tracker, compliance logs |
+| **Site** | Conducts trials, logs procedures, receives payments | EDC-linked invoicing, payment visibility, reporting |
+| **Finance/Admin** | Manages financial workflows and reconciliations | FX tools, tax setup, global payment monitoring |
+| **System (HypatiaOS)** | Automation and intelligence layer | API orchestration, triggers, analytics, audit logging |
 
-### CRO-Side Users
-- **Project Managers**: Coordination between sponsor, CRO, sites
-- **CRAs (Clinical Research Associates)**: Site monitoring, protocol compliance
-- **Site Managers**: Logistics, recruitment oversight
+## ⚙️ Workflow: Contract → Payment Lifecycle
 
-### Site-Side Users
-- **Investigators (Doctors)**: Patient treatment, data entry
-- **Study Coordinators/Nurses**: Daily trial tasks, data collection
-- **Patients/Participants**: Outcome reporting, consent, engagement
+### **Step 1: Study Setup**
+- Sponsor defines study and invites CRO/Site users
+- Study metadata stored in `study-service`
 
-## 🏗️ Core Platform Features
+### **Step 2: Budget Creation**  
+- CRO drafts budget with AI suggestions (industry benchmarks, rate cards)
+- `budget-service` manages versioning and validation
 
-### ✅ **Clinical Operations (Fully Implemented)**
-- **User Management & RBAC**: 19 role-based user types across sponsor/CRO/site ecosystems
-- **Study Management (CTMS)**: Complete study lifecycle management
-- **EDC Engine**: Electronic data capture with real-time validation
-- **eTMF Service**: Document management with AI-powered tagging
-- **Integration Gateway**: FHIR/HL7 integration and CDISC export
-- **Audit & Compliance**: 21 CFR Part 11 compliant audit trails
+### **Step 3: Contract Negotiation**
+- AI-assisted `contract-service` builds contract templates
+- `negotiation-service` tracks all change requests and risk scoring
 
-### ✅ **Financial Operations (Revolutionary Implementation)**
-- **Contract Lifecycle Management**: AI-powered contract creation, negotiation, and risk assessment
-- **Budget Management**: Multi-currency budgets with AI-powered forecasting and scenario modeling
-- **Payment Processing**: Automated EDC-driven payments with global multi-currency support
-- **Invoice Management**: Automated generation, approval workflows, and tracking
-- **Financial Analytics**: Real-time dashboards with predictive insights and KPI monitoring
-- **Global Compliance**: VAT/tax handling, local banking integration, and regulatory compliance
+### **Step 4: Contract Finalization**
+- Sponsor approves contract; FOE links it to payment terms
 
-### ✅ **AI-Powered Intelligence (Industry-Leading)**
-- **Contract Risk Assessment**: AI analysis of contract clauses with risk scoring and recommendations
-- **Predictive Cost Modeling**: Monte Carlo simulations with >90% accuracy
-- **Real-Time Analytics**: Advanced financial metrics with anomaly detection
-- **Protocol Parsing**: Automated extraction of study parameters and cost estimates
-- **Forecasting Engine**: Multi-dimensional scenario modeling for budget optimization
+### **Step 5: Study Execution**
+- Site conducts visits; data is captured via EDC integration
+- `integration-hub-service` triggers payment events in FOE
 
-### ✅ **Global Operations Support**
-- **Multi-Currency Processing**: Support for 150+ currencies with real-time exchange rates
-- **Local Tax Compliance**: Automated VAT/GST calculations for all major jurisdictions
-- **Split Payee Configurations**: Complex payment arrangements with multiple recipients
-- **Banking Integration**: SWIFT, ACH, SEPA, and local payment rails
-- **Regulatory Compliance**: Country-specific financial regulations and reporting
+### **Step 6: Payment Processing**
+- `payment-service` calculates due payments (per visit/procedure)
+- `fx-service` converts to local currency
+- `payment-gateway-service` executes payment
 
-### 🚀 **Advanced Capabilities (Next Phase)**
-- **Blockchain Payment Verification**: Immutable payment records and smart contracts
-- **Advanced IRT & Supply Management**: Intelligent randomization and supply forecasting
-- **Mobile Financial Operations**: Native mobile apps for payment tracking and approvals
-- **Advanced AI Optimization**: Machine learning for cost optimization and risk mitigation
-- **Complete FHIR/HL7 Integration**: Full healthcare data interoperability
+### **Step 7: Reconciliation & Reporting**
+- `audit-service` logs all transactions immutably
+- `analytics-service` updates dashboards and forecasts
+
+## 🧮 Data Flow Example
+
+**Trigger**: Site completes Visit #3 in EDC
+→ `integration-hub` sends data to `payment-service`
+→ `payment-service` checks contract → identifies $300 owed
+→ `fx-service` converts USD→EUR at live rate
+→ `payment-gateway-service` executes payment
+→ `audit-service` logs transaction hash (optionally via blockchain)
+→ `analytics-service` updates CRO & Sponsor dashboards in real time
+
+## 🧩 Core Platform Modules
+
+| Module | Purpose | Key Microservices | Status |
+|--------|---------|-------------------|---------|
+| **Financial Orchestration Engine (FOE)** | Automates the full financial lifecycle from negotiation to disbursement | contract-service, budget-service, payment-service, compliance-service, audit-service | 🟡 **In Development** |
+| **AI Forecasting & Analytics** | Predictive modeling for cost, performance, and delays | forecasting-service, analytics-service, simulation-service | 🟡 **In Development** |
+| **Contract & Budget Automation** | Dynamic template generation, negotiation tools, version control | template-service, negotiation-service, version-service | 🟡 **In Development** |
+| **Payment Execution Layer** | Localized multi-currency payment processing | payment-gateway-service, fx-service, banking-integration-service | 🔴 **Planned** |
+| **Integration Layer** | Connects with external EDC, CTMS, ERP, eTMF systems | integration-hub-service, api-gateway, message-bus | 🟡 **In Development** |
+| **Compliance & Audit** | Maintains regulatory and financial traceability | audit-service, compliance-service, blockchain-service | 🟡 **In Development** |
+
+## 🏗️ Current Implementation Status
+
+### ✅ **What We've Built (Current)**
+- **Authentication & RBAC System**: Complete user management with 19 role-based user types
+- **Frontend Application**: React-based web app with role-specific dashboards
+- **Database Schema**: Comprehensive financial data model (50+ tables)
+- **Core Service Architecture**: Basic microservices structure for auth, contracts, budgets
+- **Development Infrastructure**: Docker configurations, development setup scripts
+- **Documentation**: Comprehensive technical and business documentation
+
+### 🟡 **In Active Development**
+- **Contract Service**: Basic contract CRUD operations and data models
+- **Budget Service**: Budget creation and management workflows  
+- **Payment Service**: Foundation for payment processing (no live payments yet)
+- **AI Engine**: Framework for risk assessment and forecasting (no ML models yet)
+- **Integration Layer**: API structure for external system connections
+
+### 🔴 **Planned Features (Roadmap)**
+- **Live Multi-Currency Processing**: Real FX rates, actual payment execution
+- **AI Risk Assessment**: ML models for contract analysis and risk scoring
+- **EDC Integration**: Live data triggers for automated payments
+- **Global Tax Compliance**: VAT/GST calculations for all jurisdictions
+- **Banking Integrations**: SWIFT, ACH, SEPA payment rails
+- **Advanced Analytics**: Predictive modeling and Monte Carlo simulations
+- **Mobile Applications**: Native apps for payment tracking and approvals
+- **Blockchain Audit**: Immutable transaction records
+
+## 🧭 Development Roadmap
+
+| Phase | Focus | Deliverables | Timeline |
+|-------|-------|--------------|----------|
+| **Phase 1 (M1–M3)** | Core FOE, Contracts, Budgets | contract-service, budget-service, API Gateway | Current |
+| **Phase 2 (M4–M6)** | Payments & Integrations | EDC sync, payment automation, CTMS link | Next |
+| **Phase 3 (M7–M9)** | AI Forecasting | forecasting-service, simulation dashboards | Future |
+| **Phase 4 (M10–M12)** | Global Payments + Compliance | FX automation, blockchain audit, mobile app | Future |
 
 ## Compliance & Security
 
@@ -176,7 +231,51 @@ hypatiaOS/
 - Multi-factor authentication (MFA)
 - Regular security assessments
 
+## 🧾 Integrations
+
+| External System | Purpose | Integration Type |
+|----------------|---------|------------------|
+| **EDC** | Visit/procedure data | Webhooks / REST APIs |
+| **CTMS** | Study management data | Bi-directional sync |
+| **ERP / Accounting** | Financial reporting | API / CSV import |
+| **eTMF** | Document archiving | SFTP / Cloud connector |
+| **FX API (e.g. OpenExchangeRates)** | Currency conversion | REST API |
+| **Payment Gateways (Stripe, Wise, SWIFT)** | Global disbursements | Secure API integration |
+
+## 📈 Example API Endpoints
+
+### Create Contract
+```bash
+POST /contracts/create
+{
+  "study_id": "STUDY_001",
+  "site_id": "SITE_047", 
+  "currency": "USD",
+  "budget_id": "BUDGET_103",
+  "terms": { "visit_fee": 300, "max_visits": 10 }
+}
+```
+
+### Trigger Payment
+```bash
+POST /payments/trigger
+{
+  "event": "VISIT_COMPLETED",
+  "site_id": "SITE_047",
+  "amount": 300,
+  "currency": "USD", 
+  "trigger_source": "EDC"
+}
+```
+
 ## Development
+
+### 🧑‍💻 Contributing Guidelines
+- All services must expose REST + GraphQL endpoints
+- Use internal message bus for inter-service events
+- Follow shared schema for contracts, budgets, payments
+- Every PR must include API doc updates and integration tests
+- Commit naming convention: `feat|fix|chore(scope): message`
 
 ### API Standards
 - REST APIs with OpenAPI 3.0 specifications
@@ -202,6 +301,20 @@ hypatiaOS/
 ## License
 
 Proprietary - All rights reserved
+
+## ✅ Summary
+
+hypatiaOS unifies every stakeholder in clinical research under one intelligent financial infrastructure. Our north star is simple: **"Zero manual steps between contract and payment."**
+
+### Current Status
+- ✅ **Foundation Built**: Core architecture, authentication, database schema, and frontend
+- 🟡 **Active Development**: Financial services, contract management, and basic workflows  
+- 🔴 **Next Phase**: Live payments, AI models, and external integrations
+
+### Repository
+- **GitHub**: https://github.com/EliasDjemaa/hypatiaOS
+- **Documentation**: Comprehensive technical and business docs included
+- **Setup**: Follow `SETUP_INSTRUCTIONS.md` for local development
 
 ## Support
 
