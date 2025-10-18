@@ -1,0 +1,60 @@
+{
+  "name": "hypatia-os",
+  "version": "1.0.0",
+  "description": "Clinical Trial Operating System - Unified platform for EDC, CTMS, eTMF, and IRT",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "web-app",
+    "mobile-app"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run setup:services && npm run setup:db",
+    "setup:services": "npm run --workspaces install",
+    "setup:db": "docker-compose up -d postgres mongodb redis kafka",
+    "dev": "concurrently \"npm run dev:services\" \"npm run dev:web\"",
+    "dev:services": "npm run --workspaces dev",
+    "dev:web": "cd web-app && npm run dev",
+    "build": "npm run --workspaces build",
+    "test": "npm run --workspaces test",
+    "test:integration": "cd tests && npm test",
+    "lint": "npm run --workspaces lint",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "k8s:deploy": "kubectl apply -f infrastructure/kubernetes/",
+    "docs:serve": "cd docs && python -m http.server 8000",
+    "validate:schemas": "cd schemas && npm run validate"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@types/node": "^20.8.0",
+    "typescript": "^5.2.2",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.3",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/hypatia-os.git"
+  },
+  "keywords": [
+    "clinical-trials",
+    "edc",
+    "ctms",
+    "etmf",
+    "irt",
+    "healthcare",
+    "fhir",
+    "cdisc",
+    "gcp",
+    "cfr-part-11"
+  ],
+  "author": "hypatiaOS Team",
+  "license": "PROPRIETARY"
+}
