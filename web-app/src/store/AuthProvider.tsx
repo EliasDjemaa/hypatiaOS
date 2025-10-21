@@ -59,7 +59,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         organizationId: '1'
       });
     } catch (error) {
-      console.error('Login error:', error);
       throw error;
     }
   };

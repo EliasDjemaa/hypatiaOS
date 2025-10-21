@@ -39,7 +39,7 @@ All inside one intelligent, compliant ecosystem.
 | **Backend** | Node.js + Python microservices, FastAPI, GraphQL, PostgreSQL |
 | **Messaging** | Kafka / RabbitMQ |
 | **Cache** | Redis |
-| **Frontend** | React + Tailwind + shadcn/ui |
+| **Frontend** | React + TypeScript + Material-UI + Custom UI Components |
 | **Infrastructure** | Docker + Kubernetes (AWS/GCP), CI/CD via GitHub Actions |
 | **Monitoring** | Grafana, Prometheus, OpenTelemetry |
 | **Security** | Vault for secrets, JWT + OAuth2.0 RBAC, AES-256 encryption |
